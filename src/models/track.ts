@@ -29,8 +29,6 @@ interface TrackAttributes {
     timeRecorded: number;
     name: string;
     locations: Point[];
-    dateCreated: string;
-    dateUpdated: string;
 }
 
 /**
@@ -76,8 +74,8 @@ const trackSchema = new mongoose.Schema(
             default: "",
         },
         locations: [pointSchema],
-        dateCreated: { type: String, required: true },
-        dateUpdated: { type: String, required: true },
+        dateCreated: { type: Date, default: Date.now },
+        dateUpdated: { type: Date, default: Date.now },
     },
     {
         toJSON: {

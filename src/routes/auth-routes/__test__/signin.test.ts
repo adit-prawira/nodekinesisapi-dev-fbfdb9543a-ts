@@ -12,7 +12,6 @@ it("returns 422 when user signing in with an incorrect password", async () => {
     // create new account
     await request(app).post("/api/users/signup").send({
         username: "newuser",
-        age: 10,
         email: "newusertest@test.com",
         password: "test123",
     });
@@ -28,7 +27,6 @@ it("returns 200 when user signin in with valid credential", async () => {
     // create new account
     await request(app).post("/api/users/signup").send({
         username: "newuser",
-        age: 10,
         email: "newusertest@test.com",
         password: "test123",
     });

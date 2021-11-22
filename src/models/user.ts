@@ -6,11 +6,8 @@ import { Password } from "../service";
  */
 interface UserAttributes {
     username: string;
-    age: number;
     email: string;
     password: string;
-    dateCreated: string;
-    dateUpdated: string;
 }
 
 /**
@@ -18,10 +15,12 @@ interface UserAttributes {
  */
 interface UserDocument extends mongoose.Document {
     username: string;
-    age: number;
     email: string;
     password: string;
     dateCreated: string;
+    age: number;
+    height: number;
+    mass: number;
     dateUpdated: string;
 }
 
@@ -39,11 +38,13 @@ interface UserModel extends mongoose.Model<UserDocument> {
 const userSchema = new mongoose.Schema(
     {
         username: { type: String, required: true },
-        age: { type: Number, required: true },
         email: { type: String, required: true },
         password: { type: String, required: true },
-        dateCreated: { type: String, required: true },
-        dateUpdated: { type: String, required: true },
+        age: { type: Number, default: 0 },
+        height: { type: Number, default: 0 },
+        mass: { type: Number, default: 0 },
+        dateCreated: { type: Date, default: Date.now },
+        dateUpdated: { type: Date, default: Date.now },
     },
     {
         toJSON: {

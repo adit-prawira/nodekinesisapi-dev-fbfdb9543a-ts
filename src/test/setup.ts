@@ -34,12 +34,11 @@ afterAll(async () => {
 // Global function to sign up as a user
 global.signin = async () => {
     const email = "automation.test@test.com";
-    const age = 22;
     const username = "automation-test-2899";
     const password = "automation_testing";
     const res = await request(app)
         .post("/api/users/signup")
-        .send({ username, age, email, password })
+        .send({ username, email, password })
         .expect(201);
     return res.body.token;
 };

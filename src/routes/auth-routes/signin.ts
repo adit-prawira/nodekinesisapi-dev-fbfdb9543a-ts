@@ -15,7 +15,9 @@ const router = express.Router();
 router.post(
     "/api/users/signin",
     [
-        body("email").isEmail().withMessage("A valid email must be provided"),
+        body("email")
+            .isEmail()
+            .withMessage("A valid working email must be provided"),
         body("password")
             .trim()
             .notEmpty()
@@ -25,6 +27,7 @@ router.post(
     async (req: Request, res: Response) => {
         const { email, password } = req.body;
         let targetUser;
+
         try {
             targetUser = await User.findOne({ email });
         } catch (err) {

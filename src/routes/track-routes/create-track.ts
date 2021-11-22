@@ -28,16 +28,11 @@ router.post(
     validateRequest,
     async (req: Request, res: Response) => {
         const requestValues = req.body;
-        const date = new Date().toLocaleDateString();
-        const dateCreated = date;
-        const dateUpdated = date;
         let newTrack;
         try {
             newTrack = await Track.build({
                 ...requestValues,
                 userId: req.currentUser!.id,
-                dateCreated,
-                dateUpdated,
             });
             await newTrack.save();
         } catch (err) {
