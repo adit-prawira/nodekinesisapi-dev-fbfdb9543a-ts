@@ -40,6 +40,7 @@ interface TrackDocument extends Document {
     timeRecorded: number;
     name: string;
     locations: Point[];
+    burnedCalories: number;
     dateCreated: string;
     dateUpdated: string;
 }
@@ -73,6 +74,7 @@ const trackSchema = new mongoose.Schema(
             type: String,
             default: "",
         },
+        burnedCalories: { type: Number, default: 0 },
         locations: [pointSchema],
         dateCreated: { type: Date, default: Date.now },
         dateUpdated: { type: Date, default: Date.now },

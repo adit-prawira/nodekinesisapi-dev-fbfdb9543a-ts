@@ -22,7 +22,7 @@ router.post(
             .withMessage("Time spent on the exercise must be provided"),
         body("locations")
             .notEmpty()
-            .isArray()
+            .isArray({ min: 1 })
             .withMessage("Location check points must be provided"),
     ],
     validateRequest,
@@ -30,8 +30,11 @@ router.post(
         const requestValues = req.body;
         let newTrack;
         try {
+            const userMass = req.currentUser!.mass;
+            const { timeRecorded, met } = requestValues;
             newTrack = await Track.build({
                 ...requestValues,
+                burnedCalories: timeRecorded * (met * 3.5) * (userMass / 200),
                 userId: req.currentUser!.id,
             });
             await newTrack.save();

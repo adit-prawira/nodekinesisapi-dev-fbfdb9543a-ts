@@ -10,6 +10,7 @@ import {
     signInRouter,
     deleteAccountRouter,
     updateAccountRouter,
+    updateHealthProfileRoute,
 } from "./routes/auth-routes";
 
 import {
@@ -31,7 +32,7 @@ app.use(signUpRouter);
 app.use(signInRouter);
 app.use(deleteAccountRouter);
 app.use(updateAccountRouter);
-
+app.use(updateHealthProfileRoute);
 // routes that handle track services
 app.use(createTrackRouter);
 app.use(getTrackRouter);

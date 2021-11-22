@@ -19,7 +19,6 @@ router.put(
             .notEmpty()
             .isString()
             .withMessage("A username should not be empty"),
-        body("age").notEmpty().isInt().withMessage("Age should not be empty"),
     ],
     validateRequest,
     async (req: Request, res: Response) => {
@@ -42,7 +41,7 @@ router.put(
         }
 
         try {
-            const dateUpdated = new Date().toLocaleDateString();
+            const dateUpdated = new Date().toISOString();
             await User.findByIdAndUpdate(targetUserId, {
                 ...newDetails,
                 dateUpdated,
@@ -70,7 +69,7 @@ router.put(
             const targetUserId = req.currentUser!.id;
             const { password: newPassword } = req.body;
             const newHashedPassword = await Password.toHash(newPassword);
-            const dateUpdated = new Date().toLocaleDateString();
+            const dateUpdated = new Date().toISOString();
             await User.findByIdAndUpdate(targetUserId, {
                 password: newHashedPassword,
                 dateUpdated,

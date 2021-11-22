@@ -37,3 +37,10 @@ it("returns 200 when user signin in with valid credential", async () => {
         .send({ email: "newusertest@test.com", password: "test123" })
         .expect(200);
 });
+
+it("returns 404 when user signing in with unregistered account", async () => {
+    await request(app)
+        .post("/api/users/signin")
+        .send({ email: "newusertest@test.com", password: "test123" })
+        .expect(404);
+});

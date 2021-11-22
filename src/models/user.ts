@@ -17,10 +17,10 @@ interface UserDocument extends mongoose.Document {
     username: string;
     email: string;
     password: string;
-    dateCreated: string;
     age: number;
     height: number;
     mass: number;
+    dateCreated: string;
     dateUpdated: string;
 }
 
