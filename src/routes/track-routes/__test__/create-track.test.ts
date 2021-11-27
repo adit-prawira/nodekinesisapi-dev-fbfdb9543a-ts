@@ -68,4 +68,11 @@ it("returns status 201 when user give valid request body to create a track", asy
             ],
         })
         .expect(201);
+    const tracks = (
+        await request(app)
+            .get("/api/tracks")
+            .set("Authorization", `Bearer ${jwtToken}`)
+    ).body;
+
+    expect(tracks.length).toBeGreaterThan(0);
 });

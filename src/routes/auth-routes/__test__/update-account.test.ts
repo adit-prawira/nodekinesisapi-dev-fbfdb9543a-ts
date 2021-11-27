@@ -45,3 +45,29 @@ it("returns 422 when user change password but singin with old password", async (
         .send({ email, password })
         .expect(422);
 });
+
+it("returns 204 when user is authenticated and provide a valid request body for details", async () => {
+    const jwtToken = await global.signin();
+    const { email: oldEmail, username: oldUsername } = (
+        await request(app)
+            .get("/api/users/currentuser")
+            .set("Authorization", `Bearer ${jwtToken}`)
+    ).body.currentUser;
+
+    await request(app)
+        .put("/api/users/account/update")
+        .set("Authorization", `Bearer ${jwtToken}`)
+        .send({
+            username: "newusername",
+            email: "newusername@username.com",
+        })
+        .expect(204);
+    const { email: newEmail, username: newUsername } = (
+        await request(app)
+            .get("/api/users/currentuser")
+            .set("Authorization", `Bearer ${jwtToken}`)
+    ).body.currentUser;
+
+    expect(oldEmail).not.toEqual(newEmail);
+    expect(oldUsername).not.toEqual(newUsername);
+});

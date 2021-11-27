@@ -1,7 +1,12 @@
 import express, { Request, Response } from "express";
 import { requireAuth } from "../../middlewares";
-import { DataBaseConnectionError, NotAuthorizedError } from "../../errors";
+import {
+    DataBaseConnectionError,
+    NotAuthorizedError,
+    NotFoundError,
+} from "../../errors";
 import { Track } from "../../models";
+
 const router = express.Router();
 
 router.delete(
@@ -10,10 +15,15 @@ router.delete(
     async (req: Request, res: Response) => {
         let targetTrack;
         try {
-            targetTrack = await Track.findById(req.params.id);
+            try {
+                targetTrack = await Track.findById(req.params.id);
+            } catch (err) {
+                targetTrack = null;
+            }
         } catch (err) {
             throw new DataBaseConnectionError();
         }
+        if (!targetTrack) throw new NotFoundError();
         if (req.currentUser!.id !== targetTrack?.userId.toString()) {
             throw new NotAuthorizedError();
         }
