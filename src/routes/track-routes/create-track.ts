@@ -34,7 +34,8 @@ router.post(
             const { timeRecorded, met } = requestValues;
             newTrack = await Track.build({
                 ...requestValues,
-                burnedCalories: timeRecorded * (met * 3.5) * (userMass / 200),
+                burnedCalories:
+                    (timeRecorded / 60) * (met * 3.5) * (userMass / 200),
                 userId: req.currentUser!.id,
             });
             await newTrack.save();
