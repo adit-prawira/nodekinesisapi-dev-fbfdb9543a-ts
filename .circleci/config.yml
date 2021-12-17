@@ -2,7 +2,7 @@ version: 2.1
 jobs:
     run_tests:
         docker:
-            - image: circleci/node:10
+            - image: cimg/node:17.2.0
         steps:
             - checkout
             - run:
