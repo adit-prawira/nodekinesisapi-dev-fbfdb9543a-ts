@@ -11,10 +11,6 @@ jobs:
             - run:
                   name: Run unit test
                   command: yarn test
-            - store_test_results:
-                  path: test-results
-            - store_artifacts:
-                  path: test-results
 workflows:
     build_test:
         jobs:
