@@ -3,7 +3,7 @@ import { requireAuth } from "../../middlewares";
 import {
     DataBaseConnectionError,
     NotAuthorizedError,
-    NotFoundError,
+    DataNotFoundError,
 } from "../../errors";
 import { Track } from "../../models";
 const router = express.Router();
@@ -23,7 +23,7 @@ router.get(
             throw new DataBaseConnectionError();
         }
 
-        if (!targetTrack) throw new NotFoundError(); // track not found
+        if (!targetTrack) throw new DataNotFoundError(); // track not found
 
         // the current user's id does not match the ones that exist from target track
         // throw an unauthorized error

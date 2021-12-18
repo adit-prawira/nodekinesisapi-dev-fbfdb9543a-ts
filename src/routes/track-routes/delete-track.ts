@@ -3,7 +3,7 @@ import { requireAuth } from "../../middlewares";
 import {
     DataBaseConnectionError,
     NotAuthorizedError,
-    NotFoundError,
+    DataNotFoundError,
 } from "../../errors";
 import { Track } from "../../models";
 
@@ -23,7 +23,7 @@ router.delete(
         } catch (err) {
             throw new DataBaseConnectionError();
         }
-        if (!targetTrack) throw new NotFoundError();
+        if (!targetTrack) throw new DataNotFoundError();
         if (req.currentUser!.id !== targetTrack?.userId.toString()) {
             throw new NotAuthorizedError();
         }

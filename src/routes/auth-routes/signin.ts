@@ -2,7 +2,7 @@ import express, { Request, Response } from "express";
 import {
     DataBaseConnectionError,
     InvalidCredentialsError,
-    NotFoundError,
+    DataNotFoundError,
 } from "../../errors";
 import { validateRequest } from "../../middlewares";
 import { body } from "express-validator";
@@ -34,7 +34,7 @@ router.post(
             throw new DataBaseConnectionError();
         }
 
-        if (!targetUser) throw new NotFoundError();
+        if (!targetUser) throw new DataNotFoundError();
         const isMatch = await Password.compare(targetUser.password, password);
         if (!isMatch) throw new InvalidCredentialsError();
         const token = jwt.sign({ userId: targetUser.id }, process.env.JWT_KEY!);
