@@ -11,7 +11,13 @@ jobs:
             - run:
                   name: Run unit test
                   command: yarn test
+orbs:
+    heroku: circleci/heroku@1.2.6
+
 workflows:
     build_test:
         jobs:
             - run_tests
+    heroku_deploy:
+        jobs:
+            - heroku/deploy-via-git
