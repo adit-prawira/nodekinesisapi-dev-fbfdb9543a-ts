@@ -1,8 +1,5 @@
 version: 2.1
 
-orbs:
-    heroku: circleci/heroku@1.2.6
-
 jobs:
     build:
         docker:
@@ -23,13 +20,9 @@ jobs:
             - run:
                   name: Run unit test
                   command: yarn test
-    deploy:
-        executor: heroku/default
-        steps:
-            - checkout
-            - heroku/install
-            - run: echo "Installing Heroku for deployment",
-            - heroku/deploy-via-git
+
+orbs:
+    heroku: circleci/heroku@1.2.6
 
 workflows:
     kinesis_cicd_heroku:
@@ -38,6 +31,6 @@ workflows:
             - test:
                   requires:
                       - build
-            - deploy:
+            - heroku/deploy-via-git:
                   requires:
                       - test
