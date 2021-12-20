@@ -27,7 +27,7 @@ jobs:
         executor: heroku/default
         steps:
             - checkout
-            - heroku/Install
+            - heroku/install
             - run: echo "Installing Heroku for deployment",
             - heroku/deploy-via-git
 
