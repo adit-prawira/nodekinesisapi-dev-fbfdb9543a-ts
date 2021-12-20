@@ -10,7 +10,8 @@ import {
     signInRouter,
     deleteAccountRouter,
     updateAccountRouter,
-    updateHealthProfileRoute,
+    updateHealthProfileRouter,
+    accountProfilePictureRouter,
 } from "./routes/auth-routes";
 
 import {
@@ -32,7 +33,9 @@ app.use(signUpRouter);
 app.use(signInRouter);
 app.use(deleteAccountRouter);
 app.use(updateAccountRouter);
-app.use(updateHealthProfileRoute);
+app.use(updateHealthProfileRouter);
+app.use(accountProfilePictureRouter);
+
 // routes that handle track services
 app.use(createTrackRouter);
 app.use(getTrackRouter);
@@ -42,6 +45,7 @@ app.use(deleteTrackRouter);
 app.all("*", async () => {
     throw new NotFoundError();
 });
+
 app.use(errorHandler);
 
 export { app };

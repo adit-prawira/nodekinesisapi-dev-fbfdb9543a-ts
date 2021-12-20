@@ -6,3 +6,4 @@ export * from "./not-found-error";
 export * from "./request-validation-error";
 export * from "./invalid-credentials-error";
 export * from "./data-not-found-error";
+export * from "./aws-credentials-error";

@@ -10,6 +10,7 @@ interface UserPayload {
     age: number;
     height: number;
     mass: number;
+    avatar: string;
 }
 
 declare global {

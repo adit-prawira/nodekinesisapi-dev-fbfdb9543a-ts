@@ -41,4 +41,4 @@ router.put(
     }
 );
 
-export { router as updateHealthProfileRoute };
+export { router as updateHealthProfileRouter };

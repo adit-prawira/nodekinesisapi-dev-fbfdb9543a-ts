@@ -20,6 +20,7 @@ interface UserDocument extends mongoose.Document {
     age: number;
     height: number;
     mass: number;
+    avatar: string;
     dateCreated: string;
     dateUpdated: string;
 }
@@ -43,6 +44,7 @@ const userSchema = new mongoose.Schema(
         age: { type: Number, default: 0 },
         height: { type: Number, default: 0 },
         mass: { type: Number, default: 0 },
+        avatar: { type: String, default: "" },
         dateCreated: { type: Date, default: Date.now },
         dateUpdated: { type: Date, default: Date.now },
     },
