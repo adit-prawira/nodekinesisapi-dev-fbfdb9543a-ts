@@ -1,6 +1,10 @@
 version: 2.1
+
+orbs:
+    heroku: circleci/heroku@1.2.6
+
 jobs:
-    run_tests:
+    kinesis_tests:
         docker:
             - image: cimg/node:17.2.0
         steps:
@@ -11,13 +15,9 @@ jobs:
             - run:
                   name: Run unit test
                   command: yarn test
-orbs:
-    heroku: circleci/heroku@1.2.6
 
 workflows:
-    build_test:
+    kinesis_cicd_heroku:
         jobs:
-            - run_tests
-    heroku_deploy:
-        jobs:
+            - kinesis_tests
             - heroku/deploy-via-git
