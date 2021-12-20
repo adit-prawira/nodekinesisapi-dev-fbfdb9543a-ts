@@ -35,5 +35,9 @@ workflows:
     kinesis_cicd_heroku:
         jobs:
             - build
-            - test
-            - deploy
+            - test:
+                  requires:
+                      - build
+            - deploy:
+                  requires:
+                      - test
