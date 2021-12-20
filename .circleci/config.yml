@@ -18,13 +18,16 @@ jobs:
         steps:
             - checkout
             - run:
+                  name: Install npm/yarn dependencies
+                  command: yarn
+            - run:
                   name: Run unit test
                   command: yarn test
     deploy:
         executor: heroku/default
         steps:
             - checkout
-            - heroku/install
+            - heroku/Install
             - run: echo "Installing Heroku for deployment",
             - heroku/deploy-via-git
 
@@ -32,5 +35,7 @@ workflows:
     kinesis_cicd_heroku:
         jobs:
             - build
-            - test
-            - deploy
+            - test:
+                  requires: build
+            - deploy:
+                  requires: test
