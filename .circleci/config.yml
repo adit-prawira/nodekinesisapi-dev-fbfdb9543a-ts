@@ -4,7 +4,7 @@ orbs:
     heroku: circleci/heroku@1.2.6
 
 jobs:
-    kinesis_tests:
+    build:
         docker:
             - image: cimg/node:17.2.0
         steps:
@@ -12,12 +12,25 @@ jobs:
             - run:
                   name: Install npm/yarn dependencies
                   command: yarn
+    test:
+        docker:
+            - image: cimg/node:17.2.0
+        steps:
+            - checkout
             - run:
                   name: Run unit test
                   command: yarn test
+    deploy:
+        executor: heroku/default
+        steps:
+            - checkout
+            - heroku/Install
+            - run: echo "Installing Heroku for deployment",
+            - heroku/deploy-via-git
 
 workflows:
     kinesis_cicd_heroku:
         jobs:
-            - kinesis_tests
-            - heroku/deploy-via-git
+            - build
+            - test
+            - deploy
