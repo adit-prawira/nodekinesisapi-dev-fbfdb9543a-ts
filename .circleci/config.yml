@@ -1,0 +1,43 @@
+version: 2.1
+
+orbs:
+    heroku: circleci/heroku@1.2.6
+
+jobs:
+    build:
+        docker:
+            - image: cimg/node:17.2.0
+        steps:
+            - checkout
+            - run:
+                  name: Install npm/yarn dependencies
+                  command: yarn
+    test:
+        docker:
+            - image: cimg/node:17.2.0
+        steps:
+            - checkout
+            - run:
+                  name: Install npm/yarn dependencies
+                  command: yarn
+            - run:
+                  name: Run unit test
+                  command: yarn test
+    deploy:
+        executor: heroku/default
+        steps:
+            - checkout
+            - heroku/install
+            - run: echo "Installing Heroku for deployment",
+            - heroku/deploy-via-git
+
+workflows:
+    kinesis_cicd_heroku:
+        jobs:
+            - build
+            - test:
+                  requires:
+                      - build
+            - deploy:
+                  requires:
+                      - test
